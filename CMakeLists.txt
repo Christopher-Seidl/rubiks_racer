@@ -22,13 +22,22 @@ FetchContent_MakeAvailable(googletest)
 enable_testing()
 include(GoogleTest)
 
-add_executable(rubicks_racer_test)
-target_include_directories(rubicks_racer_test
-                           PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
-target_link_libraries(rubicks_racer_test PRIVATE GTest::gtest_main)
+# add racer library
+add_library(rubicks_racer_lib)
+target_include_directories(rubicks_racer_lib
+                           PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
+# add the test executable
+add_executable(rubicks_racer_tests)
+target_include_directories(rubicks_racer_tests
+                           PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
+target_link_libraries(rubicks_racer_tests PUBLIC GTest::gtest_main
+                                                 rubicks_racer_lib)
+gtest_discover_tests(rubicks_racer_tests)
+
+# add the main executable
 add_executable(rubicks_racer ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp)
-target_include_directories(rubicks_racer
-                           PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+target_link_libraries(rubicks_racer PUBLIC rubicks_racer_lib)
+install(TARGETS rubicks_racer DESTINATION bin)
 
 add_subdirectory(src)

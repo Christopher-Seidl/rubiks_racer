@@ -3,6 +3,7 @@
 #include "rotation.hpp"
 #include "square.hpp"
 #include <array>
+#include <initializer_list>
 #include <unordered_map>
 
 enum class SideDirection {
