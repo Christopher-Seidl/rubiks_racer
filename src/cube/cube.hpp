@@ -1,9 +1,9 @@
 #pragma once
 
+#include "rotation.hpp"
+#include "side.hpp"
 #include <memory>
 #include <unordered_map>
-#include "side.hpp"
-#include "rotation.hpp"
 
 enum class CubeDirection {
   TOP,
@@ -16,10 +16,12 @@ enum class CubeDirection {
 
 class Cube {
 private:
-  std::unordered_map<CubeDirection, std::unique_ptr<Side>> m_sides;
+  std::unordered_map<CubeDirection, Side> m_sides;
 
 public:
-  Cube(std::unordered_map<CubeDirection, std::unique_ptr<Side>>&&);
+  Cube(std::unordered_map<CubeDirection, Side> &&);
+
+  static Cube SolvedCube();
 
   bool is_solved() const;
 

@@ -19,7 +19,7 @@ n_build_cores=1
 echo "Building Rubik's Racer with ${n_build_cores} cores"
 make -j$n_build_cores
 
-echo "Copying RubiksRacer bin"
-cp ./RubiksRacer ../RubiksRacer
+echo "Copying rubicks_racer bin"
+cp ./rubicks_racer ../rubicks_racer
 
 cd ..

@@ -1,9 +1,9 @@
 #pragma once
 
+#include "rotation.hpp"
+#include "square.hpp"
 #include <array>
 #include <unordered_map>
-#include "square.hpp"
-#include "rotation.hpp"
 
 enum class SideDirection {
   ABOVE,
@@ -15,10 +15,11 @@ enum class SideDirection {
 class Side {
 private:
   std::array<std::array<Square, 3>, 3> m_squares;
-  std::unordered_map<SideDirection, Side*> m_neighbors;
 
 public:
-  Sider(std::array<std::array<Square, 3>, 3>&&, std::unordered_map<SideDirection, Side*>&&);
+  Side(std::array<std::array<Square, 3>, 3> &&);
+
+  static Side UniformSide(Square);
 
   bool is_solved() const;
 
