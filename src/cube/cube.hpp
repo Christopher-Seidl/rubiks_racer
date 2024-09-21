@@ -52,10 +52,52 @@ public:
   }
 
   friend std::ostream &operator<<(std::ostream &os, const Cube &cube) {
-    for (const auto &[face, side] : cube.m_sides_from_faces) {
-      os << face << std::endl;
-      os << side << std::endl;
+    const Side &top = cube.m_sides_from_faces.at(CubeFace::TOP);
+    const Side &bottom = cube.m_sides_from_faces.at(CubeFace::BOTTOM);
+    const Side &front = cube.m_sides_from_faces.at(CubeFace::FRONT);
+    const Side &back = cube.m_sides_from_faces.at(CubeFace::BACK);
+    const Side &left = cube.m_sides_from_faces.at(CubeFace::LEFT);
+    const Side &right = cube.m_sides_from_faces.at(CubeFace::RIGHT);
+    // print the top
+    os << std::endl;
+    for (size_t i = 0; i < 3; i++) {
+      os << "            ";
+      for (size_t j = 0; j < 3; j++) {
+        os << top.m_squares[i][j] << " ";
+      }
+      os << std::endl;
     }
+    os << "            - - -" << std::endl;
+    // print the left, front, right, and back
+    for (size_t i = 0; i < 3; i++) {
+      os << "    ";
+      for (size_t j = 0; j < 3; j++) {
+        os << left.m_squares[i][j] << " ";
+      }
+      os << "| ";
+      for (size_t j = 0; j < 3; j++) {
+        os << front.m_squares[i][j] << " ";
+      }
+      os << "| ";
+      for (size_t j = 0; j < 3; j++) {
+        os << right.m_squares[i][j] << " ";
+      }
+      os << "| ";
+      for (size_t j = 0; j < 3; j++) {
+        os << back.m_squares[i][j] << " ";
+      }
+      os << std::endl;
+    }
+    os << "            - - -" << std::endl;
+    // print the bottom
+    for (size_t i = 0; i < 3; i++) {
+      os << "            ";
+      for (size_t j = 0; j < 3; j++) {
+        os << bottom.m_squares[i][j] << " ";
+      }
+      os << std::endl;
+    }
+    os << std::endl;
     return os;
   }
 };
