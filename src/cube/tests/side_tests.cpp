@@ -8,10 +8,38 @@ TEST(Side, IsSolved) {
     EXPECT_TRUE(side.is_solved());
   }
   {
-    Side side(std::array<std::array<Square, 3>, 3>{
-        std::array<Square, 3>{Square::RED, Square::RED, Square::RED},
-        std::array<Square, 3>{Square::RED, Square::RED, Square::RED},
-        std::array<Square, 3>{Square::RED, Square::RED, Square::BLUE}});
+    Side side({{{Square::RED, Square::RED, Square::RED},
+                {Square::RED, Square::RED, Square::RED},
+                {Square::RED, Square::RED, Square::RED}}});
+    EXPECT_TRUE(side.is_solved());
+  }
+  {
+    Side side({{{Square::RED, Square::RED, Square::RED},
+                {Square::RED, Square::RED, Square::RED},
+                {Square::RED, Square::RED, Square::BLUE}}});
     EXPECT_FALSE(side.is_solved());
+  }
+}
+
+TEST(Side, RotateFace) {
+  {
+    Side side({{{Square::WHITE, Square::RED, Square::BLUE},
+                {Square::WHITE, Square::RED, Square::BLUE},
+                {Square::WHITE, Square::RED, Square::BLUE}}});
+    side.rotate_face(Rotation::CLOCKWISE);
+    Side expected_side({{{Square::WHITE, Square::WHITE, Square::WHITE},
+                         {Square::RED, Square::RED, Square::RED},
+                         {Square::BLUE, Square::BLUE, Square::BLUE}}});
+    EXPECT_EQ(side, expected_side);
+  }
+  {
+    Side side({{{Square::WHITE, Square::RED, Square::BLUE},
+                {Square::WHITE, Square::RED, Square::BLUE},
+                {Square::WHITE, Square::RED, Square::BLUE}}});
+    side.rotate_face(Rotation::COUNTER_CLOCKWISE);
+    Side expected_side({{{Square::BLUE, Square::BLUE, Square::BLUE},
+                         {Square::RED, Square::RED, Square::RED},
+                         {Square::WHITE, Square::WHITE, Square::WHITE}}});
+    EXPECT_EQ(side, expected_side);
   }
 }

@@ -4,6 +4,7 @@
 #include "square.hpp"
 #include <array>
 #include <initializer_list>
+#include <iostream>
 #include <unordered_map>
 
 enum class SideDirection {
@@ -14,7 +15,8 @@ enum class SideDirection {
 };
 
 class Side {
-private:
+  // private:
+public: // TODO: make this private later...
   std::array<std::array<Square, 3>, 3> m_squares;
 
 public:
@@ -26,7 +28,17 @@ public:
 
   void rotate_face(Rotation);
 
-  void rotate_row(int, Rotation);
+  bool operator==(const Side &other) const {
+    return m_squares == other.m_squares;
+  }
 
-  void rotate_column(int, Rotation);
+  friend std::ostream &operator<<(std::ostream &os, const Side &side) {
+    for (size_t i = 0; i < 3; i++) {
+      for (size_t j = 0; j < 3; j++) {
+        os << side.m_squares[i][j] << " ";
+      }
+      os << std::endl;
+    }
+    return os;
+  }
 };

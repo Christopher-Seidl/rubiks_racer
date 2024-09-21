@@ -14,9 +14,9 @@ Side Side::UniformSide(Square square) {
 
 bool Side::is_solved() const {
   Square square = m_squares[0][0];
-  for (const auto &row : m_squares) {
-    for (const auto &s : row) {
-      if (s != square) {
+  for (size_t i = 0; i < 3; i++) {
+    for (size_t j = 0; j < 3; j++) {
+      if (m_squares[i][j] != square) {
         return false;
       }
     }
@@ -24,16 +24,24 @@ bool Side::is_solved() const {
   return true;
 }
 
-void Side::rotate_face([[maybe_unused]] Rotation rotation) {
-  // TODO
-}
-
-void Side::rotate_row([[maybe_unused]] int row,
-                      [[maybe_unused]] Rotation rotation) {
-  // TODO
-}
-
-void Side::rotate_column([[maybe_unused]] int column,
-                         [[maybe_unused]] Rotation rotation) {
-  // TODO
+void Side::rotate_face(Rotation rotation) {
+  switch (rotation) {
+  case Rotation::CLOCKWISE:
+    std::swap(m_squares[0][0], m_squares[0][2]);
+    std::swap(m_squares[0][0], m_squares[2][2]);
+    std::swap(m_squares[0][0], m_squares[2][0]);
+    std::swap(m_squares[0][1], m_squares[1][2]);
+    std::swap(m_squares[0][1], m_squares[2][1]);
+    std::swap(m_squares[0][1], m_squares[1][0]);
+    return;
+  case Rotation::COUNTER_CLOCKWISE:
+    std::swap(m_squares[0][0], m_squares[2][0]);
+    std::swap(m_squares[0][0], m_squares[2][2]);
+    std::swap(m_squares[0][0], m_squares[0][2]);
+    std::swap(m_squares[0][1], m_squares[1][0]);
+    std::swap(m_squares[0][1], m_squares[2][1]);
+    std::swap(m_squares[0][1], m_squares[1][2]);
+    return;
+  }
+  __builtin_unreachable();
 }
