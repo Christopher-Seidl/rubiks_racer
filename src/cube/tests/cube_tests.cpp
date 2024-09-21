@@ -35,9 +35,7 @@ TEST(Cube, IsSolved) {
   }
 }
 
-// TODO: build out this unit test to cover all cases
 TEST(Cube, RotateFace) {
-  std::cout << "Testing top face rotation" << std::endl;
   {
     {
       auto cube = Cube::SolvedCube();
@@ -89,7 +87,6 @@ TEST(Cube, RotateFace) {
       EXPECT_EQ(cube, expected_cube);
     }
   }
-  std::cout << "Testing bottom face rotation" << std::endl;
   {
     {
       auto cube = Cube::SolvedCube();
@@ -141,7 +138,6 @@ TEST(Cube, RotateFace) {
       EXPECT_EQ(cube, expected_cube);
     }
   }
-  std::cout << "Testing front face rotation" << std::endl;
   {
     {
       auto cube = Cube::SolvedCube();
@@ -193,4 +189,416 @@ TEST(Cube, RotateFace) {
       EXPECT_EQ(cube, expected_cube);
     }
   }
+  {
+    {
+      auto cube = Cube::SolvedCube();
+      cube.rotate_face(CubeFace::BACK, Rotation::CLOCKWISE);
+      Cube expected_cube({
+          {CubeFace::TOP,
+           Side({{{Square::RED, Square::RED, Square::RED},
+                  {Square::WHITE, Square::WHITE, Square::WHITE},
+                  {Square::WHITE, Square::WHITE, Square::WHITE}}})},
+          {CubeFace::BOTTOM,
+           Side({{{Square::YELLOW, Square::YELLOW, Square::YELLOW},
+                  {Square::YELLOW, Square::YELLOW, Square::YELLOW},
+                  {Square::ORANGE, Square::ORANGE, Square::ORANGE}}})},
+          {CubeFace::FRONT, Side::UniformSide(Square::GREEN)},
+          {CubeFace::BACK, Side::UniformSide(Square::BLUE)},
+          {CubeFace::LEFT,
+           Side({{{Square::WHITE, Square::ORANGE, Square::ORANGE},
+                  {Square::WHITE, Square::ORANGE, Square::ORANGE},
+                  {Square::WHITE, Square::ORANGE, Square::ORANGE}}})},
+          {CubeFace::RIGHT,
+           Side({{{Square::RED, Square::RED, Square::YELLOW},
+                  {Square::RED, Square::RED, Square::YELLOW},
+                  {Square::RED, Square::RED, Square::YELLOW}}})},
+      });
+      EXPECT_EQ(cube, expected_cube);
+    }
+    {
+      auto cube = Cube::SolvedCube();
+      cube.rotate_face(CubeFace::BACK, Rotation::COUNTER_CLOCKWISE);
+      Cube expected_cube({
+          {CubeFace::TOP,
+           Side({{{Square::ORANGE, Square::ORANGE, Square::ORANGE},
+                  {Square::WHITE, Square::WHITE, Square::WHITE},
+                  {Square::WHITE, Square::WHITE, Square::WHITE}}})},
+          {CubeFace::BOTTOM,
+           Side({{{Square::YELLOW, Square::YELLOW, Square::YELLOW},
+                  {Square::YELLOW, Square::YELLOW, Square::YELLOW},
+                  {Square::RED, Square::RED, Square::RED}}})},
+          {CubeFace::FRONT, Side::UniformSide(Square::GREEN)},
+          {CubeFace::BACK, Side::UniformSide(Square::BLUE)},
+          {CubeFace::LEFT,
+           Side({{{Square::YELLOW, Square::ORANGE, Square::ORANGE},
+                  {Square::YELLOW, Square::ORANGE, Square::ORANGE},
+                  {Square::YELLOW, Square::ORANGE, Square::ORANGE}}})},
+          {CubeFace::RIGHT,
+           Side({{{Square::RED, Square::RED, Square::WHITE},
+                  {Square::RED, Square::RED, Square::WHITE},
+                  {Square::RED, Square::RED, Square::WHITE}}})},
+      });
+      EXPECT_EQ(cube, expected_cube);
+    }
+  }
+  {
+    {
+      auto cube = Cube::SolvedCube();
+      cube.rotate_face(CubeFace::LEFT, Rotation::CLOCKWISE);
+      Cube expected_cube({
+          {CubeFace::TOP,
+           Side({{{Square::BLUE, Square::WHITE, Square::WHITE},
+                  {Square::BLUE, Square::WHITE, Square::WHITE},
+                  {Square::BLUE, Square::WHITE, Square::WHITE}}})},
+          {CubeFace::BOTTOM,
+           Side({{{Square::GREEN, Square::YELLOW, Square::YELLOW},
+                  {Square::GREEN, Square::YELLOW, Square::YELLOW},
+                  {Square::GREEN, Square::YELLOW, Square::YELLOW}}})},
+          {CubeFace::FRONT,
+           Side({{{Square::WHITE, Square::GREEN, Square::GREEN},
+                  {Square::WHITE, Square::GREEN, Square::GREEN},
+                  {Square::WHITE, Square::GREEN, Square::GREEN}}})},
+          {CubeFace::BACK,
+           Side({{{Square::BLUE, Square::BLUE, Square::YELLOW},
+                  {Square::BLUE, Square::BLUE, Square::YELLOW},
+                  {Square::BLUE, Square::BLUE, Square::YELLOW}}})},
+          {CubeFace::LEFT, Side::UniformSide(Square::ORANGE)},
+          {CubeFace::RIGHT, Side::UniformSide(Square::RED)},
+      });
+      EXPECT_EQ(cube, expected_cube);
+    }
+    {
+      auto cube = Cube::SolvedCube();
+      cube.rotate_face(CubeFace::LEFT, Rotation::COUNTER_CLOCKWISE);
+      Cube expected_cube({
+          {CubeFace::TOP,
+           Side({{{Square::GREEN, Square::WHITE, Square::WHITE},
+                  {Square::GREEN, Square::WHITE, Square::WHITE},
+                  {Square::GREEN, Square::WHITE, Square::WHITE}}})},
+          {CubeFace::BOTTOM,
+           Side({{{Square::BLUE, Square::YELLOW, Square::YELLOW},
+                  {Square::BLUE, Square::YELLOW, Square::YELLOW},
+                  {Square::BLUE, Square::YELLOW, Square::YELLOW}}})},
+          {CubeFace::FRONT,
+           Side({{{Square::YELLOW, Square::GREEN, Square::GREEN},
+                  {Square::YELLOW, Square::GREEN, Square::GREEN},
+                  {Square::YELLOW, Square::GREEN, Square::GREEN}}})},
+          {CubeFace::BACK,
+           Side({{{Square::BLUE, Square::BLUE, Square::WHITE},
+                  {Square::BLUE, Square::BLUE, Square::WHITE},
+                  {Square::BLUE, Square::BLUE, Square::WHITE}}})},
+          {CubeFace::LEFT, Side::UniformSide(Square::ORANGE)},
+          {CubeFace::RIGHT, Side::UniformSide(Square::RED)},
+      });
+      EXPECT_EQ(cube, expected_cube);
+    }
+  }
+  {
+    {
+      auto cube = Cube::SolvedCube();
+      cube.rotate_face(CubeFace::RIGHT, Rotation::CLOCKWISE);
+      Cube expected_cube({
+          {CubeFace::TOP,
+           Side({{{Square::WHITE, Square::WHITE, Square::GREEN},
+                  {Square::WHITE, Square::WHITE, Square::GREEN},
+                  {Square::WHITE, Square::WHITE, Square::GREEN}}})},
+          {CubeFace::BOTTOM,
+           Side({{{Square::YELLOW, Square::YELLOW, Square::BLUE},
+                  {Square::YELLOW, Square::YELLOW, Square::BLUE},
+                  {Square::YELLOW, Square::YELLOW, Square::BLUE}}})},
+          {CubeFace::FRONT,
+           Side({{{Square::GREEN, Square::GREEN, Square::YELLOW},
+                  {Square::GREEN, Square::GREEN, Square::YELLOW},
+                  {Square::GREEN, Square::GREEN, Square::YELLOW}}})},
+          {CubeFace::BACK,
+           Side({{{Square::WHITE, Square::BLUE, Square::BLUE},
+                  {Square::WHITE, Square::BLUE, Square::BLUE},
+                  {Square::WHITE, Square::BLUE, Square::BLUE}}})},
+          {CubeFace::LEFT, Side::UniformSide(Square::ORANGE)},
+          {CubeFace::RIGHT, Side::UniformSide(Square::RED)},
+      });
+      EXPECT_EQ(cube, expected_cube);
+    }
+    {
+      auto cube = Cube::SolvedCube();
+      cube.rotate_face(CubeFace::RIGHT, Rotation::COUNTER_CLOCKWISE);
+      Cube expected_cube({
+          {CubeFace::TOP,
+           Side({{{Square::WHITE, Square::WHITE, Square::BLUE},
+                  {Square::WHITE, Square::WHITE, Square::BLUE},
+                  {Square::WHITE, Square::WHITE, Square::BLUE}}})},
+          {CubeFace::BOTTOM,
+           Side({{{Square::YELLOW, Square::YELLOW, Square::GREEN},
+                  {Square::YELLOW, Square::YELLOW, Square::GREEN},
+                  {Square::YELLOW, Square::YELLOW, Square::GREEN}}})},
+          {CubeFace::FRONT,
+           Side({{{Square::GREEN, Square::GREEN, Square::WHITE},
+                  {Square::GREEN, Square::GREEN, Square::WHITE},
+                  {Square::GREEN, Square::GREEN, Square::WHITE}}})},
+          {CubeFace::BACK,
+           Side({{{Square::YELLOW, Square::BLUE, Square::BLUE},
+                  {Square::YELLOW, Square::BLUE, Square::BLUE},
+                  {Square::YELLOW, Square::BLUE, Square::BLUE}}})},
+          {CubeFace::LEFT, Side::UniformSide(Square::ORANGE)},
+          {CubeFace::RIGHT, Side::UniformSide(Square::RED)},
+      });
+      EXPECT_EQ(cube, expected_cube);
+    }
+  }
+}
+
+TEST(Cube, RotateFaceMultiple) {
+  auto cube = Cube::SolvedCube();
+  cube.rotate_face(CubeFace::TOP, Rotation::COUNTER_CLOCKWISE);
+  EXPECT_EQ(cube,
+            Cube({
+                {CubeFace::TOP,
+                 Side({{{Square::WHITE, Square::WHITE, Square::WHITE},
+                        {Square::WHITE, Square::WHITE, Square::WHITE},
+                        {Square::WHITE, Square::WHITE, Square::WHITE}}})},
+                {CubeFace::BOTTOM,
+                 Side({{{Square::YELLOW, Square::YELLOW, Square::YELLOW},
+                        {Square::YELLOW, Square::YELLOW, Square::YELLOW},
+                        {Square::YELLOW, Square::YELLOW, Square::YELLOW}}})},
+                {CubeFace::FRONT,
+                 Side({{{Square::ORANGE, Square::ORANGE, Square::ORANGE},
+                        {Square::GREEN, Square::GREEN, Square::GREEN},
+                        {Square::GREEN, Square::GREEN, Square::GREEN}}})},
+                {CubeFace::BACK,
+                 Side({{{Square::RED, Square::RED, Square::RED},
+                        {Square::BLUE, Square::BLUE, Square::BLUE},
+                        {Square::BLUE, Square::BLUE, Square::BLUE}}})},
+                {CubeFace::LEFT,
+                 Side({{{Square::BLUE, Square::BLUE, Square::BLUE},
+                        {Square::ORANGE, Square::ORANGE, Square::ORANGE},
+                        {Square::ORANGE, Square::ORANGE, Square::ORANGE}}})},
+                {CubeFace::RIGHT,
+                 Side({{{Square::GREEN, Square::GREEN, Square::GREEN},
+                        {Square::RED, Square::RED, Square::RED},
+                        {Square::RED, Square::RED, Square::RED}}})},
+            }));
+  cube.rotate_face(CubeFace::RIGHT, Rotation::COUNTER_CLOCKWISE);
+  EXPECT_EQ(cube,
+            Cube({
+                {CubeFace::TOP,
+                 Side({{{Square::WHITE, Square::WHITE, Square::BLUE},
+                        {Square::WHITE, Square::WHITE, Square::BLUE},
+                        {Square::WHITE, Square::WHITE, Square::RED}}})},
+                {CubeFace::BOTTOM,
+                 Side({{{Square::YELLOW, Square::YELLOW, Square::ORANGE},
+                        {Square::YELLOW, Square::YELLOW, Square::GREEN},
+                        {Square::YELLOW, Square::YELLOW, Square::GREEN}}})},
+                {CubeFace::FRONT,
+                 Side({{{Square::ORANGE, Square::ORANGE, Square::WHITE},
+                        {Square::GREEN, Square::GREEN, Square::WHITE},
+                        {Square::GREEN, Square::GREEN, Square::WHITE}}})},
+                {CubeFace::BACK,
+                 Side({{{Square::YELLOW, Square::RED, Square::RED},
+                        {Square::YELLOW, Square::BLUE, Square::BLUE},
+                        {Square::YELLOW, Square::BLUE, Square::BLUE}}})},
+                {CubeFace::LEFT,
+                 Side({{{Square::BLUE, Square::BLUE, Square::BLUE},
+                        {Square::ORANGE, Square::ORANGE, Square::ORANGE},
+                        {Square::ORANGE, Square::ORANGE, Square::ORANGE}}})},
+                {CubeFace::RIGHT,
+                 Side({{{Square::GREEN, Square::RED, Square::RED},
+                        {Square::GREEN, Square::RED, Square::RED},
+                        {Square::GREEN, Square::RED, Square::RED}}})},
+            }));
+  cube.rotate_face(CubeFace::BOTTOM, Rotation::COUNTER_CLOCKWISE);
+  EXPECT_EQ(cube,
+            Cube({
+                {CubeFace::TOP,
+                 Side({{{Square::WHITE, Square::WHITE, Square::BLUE},
+                        {Square::WHITE, Square::WHITE, Square::BLUE},
+                        {Square::WHITE, Square::WHITE, Square::RED}}})},
+                {CubeFace::BOTTOM,
+                 Side({{{Square::ORANGE, Square::GREEN, Square::GREEN},
+                        {Square::YELLOW, Square::YELLOW, Square::YELLOW},
+                        {Square::YELLOW, Square::YELLOW, Square::YELLOW}}})},
+                {CubeFace::FRONT,
+                 Side({{{Square::ORANGE, Square::ORANGE, Square::WHITE},
+                        {Square::GREEN, Square::GREEN, Square::WHITE},
+                        {Square::GREEN, Square::RED, Square::RED}}})},
+                {CubeFace::BACK,
+                 Side({{{Square::YELLOW, Square::RED, Square::RED},
+                        {Square::YELLOW, Square::BLUE, Square::BLUE},
+                        {Square::ORANGE, Square::ORANGE, Square::ORANGE}}})},
+                {CubeFace::LEFT,
+                 Side({{{Square::BLUE, Square::BLUE, Square::BLUE},
+                        {Square::ORANGE, Square::ORANGE, Square::ORANGE},
+                        {Square::GREEN, Square::GREEN, Square::WHITE}}})},
+                {CubeFace::RIGHT,
+                 Side({{{Square::GREEN, Square::RED, Square::RED},
+                        {Square::GREEN, Square::RED, Square::RED},
+                        {Square::YELLOW, Square::BLUE, Square::BLUE}}})},
+            }));
+  cube.rotate_face(CubeFace::FRONT, Rotation::CLOCKWISE);
+  EXPECT_EQ(cube,
+            Cube({
+                {CubeFace::TOP,
+                 Side({{{Square::WHITE, Square::WHITE, Square::BLUE},
+                        {Square::WHITE, Square::WHITE, Square::BLUE},
+                        {Square::WHITE, Square::ORANGE, Square::BLUE}}})},
+                {CubeFace::BOTTOM,
+                 Side({{{Square::YELLOW, Square::GREEN, Square::GREEN},
+                        {Square::YELLOW, Square::YELLOW, Square::YELLOW},
+                        {Square::YELLOW, Square::YELLOW, Square::YELLOW}}})},
+                {CubeFace::FRONT,
+                 Side({{{Square::GREEN, Square::GREEN, Square::ORANGE},
+                        {Square::RED, Square::GREEN, Square::ORANGE},
+                        {Square::RED, Square::WHITE, Square::WHITE}}})},
+                {CubeFace::BACK,
+                 Side({{{Square::YELLOW, Square::RED, Square::RED},
+                        {Square::YELLOW, Square::BLUE, Square::BLUE},
+                        {Square::ORANGE, Square::ORANGE, Square::ORANGE}}})},
+                {CubeFace::LEFT,
+                 Side({{{Square::BLUE, Square::BLUE, Square::ORANGE},
+                        {Square::ORANGE, Square::ORANGE, Square::GREEN},
+                        {Square::GREEN, Square::GREEN, Square::GREEN}}})},
+                {CubeFace::RIGHT,
+                 Side({{{Square::WHITE, Square::RED, Square::RED},
+                        {Square::WHITE, Square::RED, Square::RED},
+                        {Square::RED, Square::BLUE, Square::BLUE}}})},
+            }));
+  cube.rotate_face(CubeFace::LEFT, Rotation::COUNTER_CLOCKWISE);
+  EXPECT_EQ(cube,
+            Cube({
+                {CubeFace::TOP,
+                 Side({{{Square::GREEN, Square::WHITE, Square::BLUE},
+                        {Square::RED, Square::WHITE, Square::BLUE},
+                        {Square::RED, Square::ORANGE, Square::BLUE}}})},
+                {CubeFace::BOTTOM,
+                 Side({{{Square::ORANGE, Square::GREEN, Square::GREEN},
+                        {Square::BLUE, Square::YELLOW, Square::YELLOW},
+                        {Square::RED, Square::YELLOW, Square::YELLOW}}})},
+                {CubeFace::FRONT,
+                 Side({{{Square::YELLOW, Square::GREEN, Square::ORANGE},
+                        {Square::YELLOW, Square::GREEN, Square::ORANGE},
+                        {Square::YELLOW, Square::WHITE, Square::WHITE}}})},
+                {CubeFace::BACK,
+                 Side({{{Square::YELLOW, Square::RED, Square::WHITE},
+                        {Square::YELLOW, Square::BLUE, Square::WHITE},
+                        {Square::ORANGE, Square::ORANGE, Square::WHITE}}})},
+                {CubeFace::LEFT,
+                 Side({{{Square::ORANGE, Square::GREEN, Square::GREEN},
+                        {Square::BLUE, Square::ORANGE, Square::GREEN},
+                        {Square::BLUE, Square::ORANGE, Square::GREEN}}})},
+                {CubeFace::RIGHT,
+                 Side({{{Square::WHITE, Square::RED, Square::RED},
+                        {Square::WHITE, Square::RED, Square::RED},
+                        {Square::RED, Square::BLUE, Square::BLUE}}})},
+            }));
+  cube.rotate_face(CubeFace::BACK, Rotation::COUNTER_CLOCKWISE);
+  EXPECT_EQ(cube,
+            Cube({
+                {CubeFace::TOP,
+                 Side({{{Square::BLUE, Square::BLUE, Square::ORANGE},
+                        {Square::RED, Square::WHITE, Square::BLUE},
+                        {Square::RED, Square::ORANGE, Square::BLUE}}})},
+                {CubeFace::BOTTOM,
+                 Side({{{Square::ORANGE, Square::GREEN, Square::GREEN},
+                        {Square::BLUE, Square::YELLOW, Square::YELLOW},
+                        {Square::BLUE, Square::RED, Square::RED}}})},
+                {CubeFace::FRONT,
+                 Side({{{Square::YELLOW, Square::GREEN, Square::ORANGE},
+                        {Square::YELLOW, Square::GREEN, Square::ORANGE},
+                        {Square::YELLOW, Square::WHITE, Square::WHITE}}})},
+                {CubeFace::BACK,
+                 Side({{{Square::WHITE, Square::WHITE, Square::WHITE},
+                        {Square::RED, Square::BLUE, Square::ORANGE},
+                        {Square::YELLOW, Square::YELLOW, Square::ORANGE}}})},
+                {CubeFace::LEFT,
+                 Side({{{Square::RED, Square::GREEN, Square::GREEN},
+                        {Square::YELLOW, Square::ORANGE, Square::GREEN},
+                        {Square::YELLOW, Square::ORANGE, Square::GREEN}}})},
+                {CubeFace::RIGHT,
+                 Side({{{Square::WHITE, Square::RED, Square::GREEN},
+                        {Square::WHITE, Square::RED, Square::WHITE},
+                        {Square::RED, Square::BLUE, Square::BLUE}}})},
+            }));
+  cube.rotate_face(CubeFace::TOP, Rotation::CLOCKWISE);
+  EXPECT_EQ(cube,
+            Cube({
+                {CubeFace::TOP,
+                 Side({{{Square::RED, Square::RED, Square::BLUE},
+                        {Square::ORANGE, Square::WHITE, Square::BLUE},
+                        {Square::BLUE, Square::BLUE, Square::ORANGE}}})},
+                {CubeFace::BOTTOM,
+                 Side({{{Square::ORANGE, Square::GREEN, Square::GREEN},
+                        {Square::BLUE, Square::YELLOW, Square::YELLOW},
+                        {Square::BLUE, Square::RED, Square::RED}}})},
+                {CubeFace::FRONT,
+                 Side({{{Square::WHITE, Square::RED, Square::GREEN},
+                        {Square::YELLOW, Square::GREEN, Square::ORANGE},
+                        {Square::YELLOW, Square::WHITE, Square::WHITE}}})},
+                {CubeFace::BACK,
+                 Side({{{Square::RED, Square::GREEN, Square::GREEN},
+                        {Square::RED, Square::BLUE, Square::ORANGE},
+                        {Square::YELLOW, Square::YELLOW, Square::ORANGE}}})},
+                {CubeFace::LEFT,
+                 Side({{{Square::YELLOW, Square::GREEN, Square::ORANGE},
+                        {Square::YELLOW, Square::ORANGE, Square::GREEN},
+                        {Square::YELLOW, Square::ORANGE, Square::GREEN}}})},
+                {CubeFace::RIGHT,
+                 Side({{{Square::WHITE, Square::WHITE, Square::WHITE},
+                        {Square::WHITE, Square::RED, Square::WHITE},
+                        {Square::RED, Square::BLUE, Square::BLUE}}})},
+            }));
+  cube.rotate_face(CubeFace::BOTTOM, Rotation::COUNTER_CLOCKWISE);
+  EXPECT_EQ(cube,
+            Cube({
+                {CubeFace::TOP,
+                 Side({{{Square::RED, Square::RED, Square::BLUE},
+                        {Square::ORANGE, Square::WHITE, Square::BLUE},
+                        {Square::BLUE, Square::BLUE, Square::ORANGE}}})},
+                {CubeFace::BOTTOM,
+                 Side({{{Square::GREEN, Square::YELLOW, Square::RED},
+                        {Square::GREEN, Square::YELLOW, Square::RED},
+                        {Square::ORANGE, Square::BLUE, Square::BLUE}}})},
+                {CubeFace::FRONT,
+                 Side({{{Square::WHITE, Square::RED, Square::GREEN},
+                        {Square::YELLOW, Square::GREEN, Square::ORANGE},
+                        {Square::RED, Square::BLUE, Square::BLUE}}})},
+                {CubeFace::BACK,
+                 Side({{{Square::RED, Square::GREEN, Square::GREEN},
+                        {Square::RED, Square::BLUE, Square::ORANGE},
+                        {Square::YELLOW, Square::ORANGE, Square::GREEN}}})},
+                {CubeFace::LEFT,
+                 Side({{{Square::YELLOW, Square::GREEN, Square::ORANGE},
+                        {Square::YELLOW, Square::ORANGE, Square::GREEN},
+                        {Square::YELLOW, Square::WHITE, Square::WHITE}}})},
+                {CubeFace::RIGHT,
+                 Side({{{Square::WHITE, Square::WHITE, Square::WHITE},
+                        {Square::WHITE, Square::RED, Square::WHITE},
+                        {Square::YELLOW, Square::YELLOW, Square::ORANGE}}})},
+            }));
+  cube.rotate_face(CubeFace::RIGHT, Rotation::CLOCKWISE);
+  EXPECT_EQ(cube,
+            Cube({
+                {CubeFace::TOP,
+                 Side({{{Square::RED, Square::RED, Square::GREEN},
+                        {Square::ORANGE, Square::WHITE, Square::ORANGE},
+                        {Square::BLUE, Square::BLUE, Square::BLUE}}})},
+                {CubeFace::BOTTOM,
+                 Side({{{Square::GREEN, Square::YELLOW, Square::YELLOW},
+                        {Square::GREEN, Square::YELLOW, Square::RED},
+                        {Square::ORANGE, Square::BLUE, Square::RED}}})},
+                {CubeFace::FRONT,
+                 Side({{{Square::WHITE, Square::RED, Square::RED},
+                        {Square::YELLOW, Square::GREEN, Square::RED},
+                        {Square::RED, Square::BLUE, Square::BLUE}}})},
+                {CubeFace::BACK,
+                 Side({{{Square::ORANGE, Square::GREEN, Square::GREEN},
+                        {Square::BLUE, Square::BLUE, Square::ORANGE},
+                        {Square::BLUE, Square::ORANGE, Square::GREEN}}})},
+                {CubeFace::LEFT,
+                 Side({{{Square::YELLOW, Square::GREEN, Square::ORANGE},
+                        {Square::YELLOW, Square::ORANGE, Square::GREEN},
+                        {Square::YELLOW, Square::WHITE, Square::WHITE}}})},
+                {CubeFace::RIGHT,
+                 Side({{{Square::YELLOW, Square::WHITE, Square::WHITE},
+                        {Square::YELLOW, Square::RED, Square::WHITE},
+                        {Square::ORANGE, Square::WHITE, Square::WHITE}}})},
+            }));
 }
