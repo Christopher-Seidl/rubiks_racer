@@ -625,3 +625,22 @@ TEST(Cube, RotateFaceFailingCase) {
   cube.rotate_face(CubeFace::TOP, Rotation::CLOCKWISE);
   cube.rotate_face(CubeFace::FRONT, Rotation::COUNTER_CLOCKWISE);
 }
+
+// TODO: get this to pass
+TEST(Cube, FuzzTestingRotations) {
+  srand(time(nullptr));
+  std::vector<std::pair<CubeFace, Rotation>> action_history;
+  auto cube = Cube::SolvedCube();
+  for (size_t _ = 0; _ < 100; _++) {
+    auto face = static_cast<CubeFace>(rand() % 6);
+    auto rotation = static_cast<Rotation>(rand() % 2);
+    cube.rotate_face(face, rotation);
+    action_history.push_back({face, rotation});
+  }
+  // iterate backwards to undo the actions
+  for (auto it = action_history.rbegin(); it != action_history.rend(); it++) {
+    auto [face, rotation] = *it;
+    cube.rotate_face(face, reverse_rotation(rotation));
+  }
+  EXPECT_EQ(cube, Cube::SolvedCube());
+}
