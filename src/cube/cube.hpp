@@ -35,7 +35,8 @@ inline std::ostream &operator<<(std::ostream &os, CubeFace face) {
 }
 
 class Cube {
-private:
+  // private:
+public: // TODO: allow this to be private
   std::unordered_map<CubeFace, Side> m_sides_from_faces;
 
 public:
@@ -44,6 +45,8 @@ public:
   static Cube SolvedCube();
 
   bool is_solved() const;
+
+  size_t number_of_matched_squares() const;
 
   void rotate_face(CubeFace, Rotation);
 
@@ -101,3 +104,16 @@ public:
     return os;
   }
 };
+
+// write a hash function for Cube so we can use it in unordered_map
+namespace std {
+template <> struct hash<Cube> {
+  size_t operator()(const Cube &cube) const {
+    size_t hash = 0;
+    for (const auto &pair : cube.m_sides_from_faces) {
+      hash ^= std::hash<Side>()(pair.second);
+    }
+    return hash;
+  }
+};
+} // namespace std

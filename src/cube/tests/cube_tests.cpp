@@ -602,3 +602,26 @@ TEST(Cube, RotateFaceMultiple) {
                         {Square::ORANGE, Square::WHITE, Square::WHITE}}})},
             }));
 }
+
+// TODO: get this to pass
+TEST(Cube, RotateFaceFailingCase) {
+  // scrambling face: Front with rotation: CCW
+  // scrambling face: Top with rotation: CW
+  // scrambling face: Front with rotation: CCW
+  // scrambled cube:
+  //             R W W
+  //             R W W
+  //             Y Y B
+  //             - - -
+  //     G G R | R G G | O B B | O O W
+  //     O O W | R G G | O R R | B B B
+  //     O O W | Y G G | O R R | B B B
+  //             - - -
+  //             W W G
+  //             Y Y Y
+  //             Y Y Y
+  auto cube = Cube::SolvedCube();
+  cube.rotate_face(CubeFace::FRONT, Rotation::COUNTER_CLOCKWISE);
+  cube.rotate_face(CubeFace::TOP, Rotation::CLOCKWISE);
+  cube.rotate_face(CubeFace::FRONT, Rotation::COUNTER_CLOCKWISE);
+}

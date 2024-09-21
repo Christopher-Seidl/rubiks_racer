@@ -21,6 +21,25 @@ TEST(Side, IsSolved) {
   }
 }
 
+TEST(Side, NumberOfMatchedSquares) {
+  {
+    auto side = Side::UniformSide(Square::RED);
+    EXPECT_EQ(side.number_of_matched_squares(), 9);
+  }
+  {
+    Side side({{{Square::RED, Square::RED, Square::RED},
+                {Square::RED, Square::BLUE, Square::RED},
+                {Square::RED, Square::RED, Square::BLUE}}});
+    EXPECT_EQ(side.number_of_matched_squares(), 2);
+  }
+  {
+    Side side({{{Square::RED, Square::RED, Square::RED},
+                {Square::RED, Square::RED, Square::RED},
+                {Square::RED, Square::RED, Square::BLUE}}});
+    EXPECT_EQ(side.number_of_matched_squares(), 8);
+  }
+}
+
 TEST(Side, RotateFace) {
   {
     Side side({{{Square::WHITE, Square::RED, Square::BLUE},

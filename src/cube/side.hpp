@@ -26,6 +26,8 @@ public:
 
   bool is_solved() const;
 
+  size_t number_of_matched_squares() const;
+
   void rotate_face(Rotation);
 
   bool operator==(const Side &other) const {
@@ -42,3 +44,18 @@ public:
     return os;
   }
 };
+
+// write a hash function for Side
+namespace std {
+template <> struct hash<Side> {
+  size_t operator()(const Side &side) const {
+    size_t hash = 0;
+    for (size_t i = 0; i < 3; i++) {
+      for (size_t j = 0; j < 3; j++) {
+        hash ^= std::hash<Square>{}(side.m_squares[i][j]);
+      }
+    }
+    return hash;
+  }
+};
+} // namespace std

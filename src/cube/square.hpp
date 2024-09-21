@@ -28,3 +28,12 @@ inline std::ostream &operator<<(std::ostream &os, Square square) {
   }
   __builtin_unreachable();
 }
+
+// write a hash function for Square
+namespace std {
+template <> struct hash<Square> {
+  size_t operator()(const Square &square) const {
+    return static_cast<size_t>(square);
+  }
+};
+} // namespace std

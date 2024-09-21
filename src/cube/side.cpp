@@ -13,15 +13,28 @@ Side Side::UniformSide(Square square) {
 }
 
 bool Side::is_solved() const {
-  Square square = m_squares[0][0];
+  Square center_square = m_squares[1][1];
   for (size_t i = 0; i < 3; i++) {
     for (size_t j = 0; j < 3; j++) {
-      if (m_squares[i][j] != square) {
+      if (m_squares[i][j] != center_square) {
         return false;
       }
     }
   }
   return true;
+}
+
+size_t Side::number_of_matched_squares() const {
+  Square center_square = m_squares[1][1];
+  size_t matched_squares = 0;
+  for (size_t i = 0; i < 3; i++) {
+    for (size_t j = 0; j < 3; j++) {
+      if (m_squares[i][j] == center_square) {
+        matched_squares++;
+      }
+    }
+  }
+  return matched_squares;
 }
 
 void Side::rotate_face(Rotation rotation) {

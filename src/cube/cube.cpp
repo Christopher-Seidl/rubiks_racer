@@ -24,6 +24,14 @@ bool Cube::is_solved() const {
   return true;
 }
 
+size_t Cube::number_of_matched_squares() const {
+  size_t matched_squares = 0;
+  for (const auto &[_, side] : m_sides_from_faces) {
+    matched_squares += side.number_of_matched_squares();
+  }
+  return matched_squares;
+}
+
 // TODO: this is digusting, fix
 void Cube::rotate_face(CubeFace face, Rotation rotation) {
   Side &side = m_sides_from_faces.at(face);
