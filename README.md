@@ -1,1 +1,1 @@
-# rubiks_racer
+# Rubik's Cube Racer
