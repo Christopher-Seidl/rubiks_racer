@@ -24,6 +24,16 @@ bool Side::is_solved() const {
   return true;
 }
 
+bool Side::is_cross_solved() const {
+  Square center_square = m_squares[1][1];
+  for (size_t i = 0; i < 3; i++) {
+    if (m_squares[i][1] != center_square || m_squares[1][i] != center_square) {
+      return false;
+    }
+  }
+  return true;
+}
+
 size_t Side::number_of_matched_squares() const {
   Square center_square = m_squares[1][1];
   size_t matched_squares = 0;
@@ -35,6 +45,17 @@ size_t Side::number_of_matched_squares() const {
     }
   }
   return matched_squares;
+}
+
+size_t Side::number_of_matching_rows_and_columns() const {
+  size_t matching_rows_and_columns = 0;
+  for (size_t i = 0; i < 3; i++) {
+    matching_rows_and_columns += m_squares[i][0] == m_squares[i][1] &&
+                                 m_squares[i][1] == m_squares[i][2];
+    matching_rows_and_columns += m_squares[0][i] == m_squares[1][i] &&
+                                 m_squares[1][i] == m_squares[2][i];
+  }
+  return matching_rows_and_columns;
 }
 
 void Side::rotate_face(Rotation rotation) {

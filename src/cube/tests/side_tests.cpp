@@ -21,6 +21,25 @@ TEST(Side, IsSolved) {
   }
 }
 
+TEST(Side, IsCrossSolved) {
+  {
+    auto side = Side::UniformSide(Square::RED);
+    EXPECT_TRUE(side.is_cross_solved());
+  }
+  {
+    Side side({{{Square::BLUE, Square::RED, Square::BLUE},
+                {Square::RED, Square::RED, Square::RED},
+                {Square::BLUE, Square::RED, Square::BLUE}}});
+    EXPECT_TRUE(side.is_cross_solved());
+  }
+  {
+    Side side({{{Square::RED, Square::RED, Square::RED},
+                {Square::RED, Square::BLUE, Square::RED},
+                {Square::RED, Square::RED, Square::RED}}});
+    EXPECT_FALSE(side.is_cross_solved());
+  }
+}
+
 TEST(Side, NumberOfMatchedSquares) {
   {
     auto side = Side::UniformSide(Square::RED);
@@ -37,6 +56,25 @@ TEST(Side, NumberOfMatchedSquares) {
                 {Square::RED, Square::RED, Square::RED},
                 {Square::RED, Square::RED, Square::BLUE}}});
     EXPECT_EQ(side.number_of_matched_squares(), 8);
+  }
+}
+
+TEST(Side, NumberOfMatchedRowsAndColumns) {
+  {
+    auto side = Side::UniformSide(Square::RED);
+    EXPECT_EQ(side.number_of_matching_rows_and_columns(), 6);
+  }
+  {
+    Side side({{{Square::RED, Square::RED, Square::RED},
+                {Square::RED, Square::BLUE, Square::RED},
+                {Square::RED, Square::RED, Square::BLUE}}});
+    EXPECT_EQ(side.number_of_matching_rows_and_columns(), 2);
+  }
+  {
+    Side side({{{Square::RED, Square::RED, Square::RED},
+                {Square::RED, Square::RED, Square::RED},
+                {Square::RED, Square::RED, Square::BLUE}}});
+    EXPECT_EQ(side.number_of_matching_rows_and_columns(), 4);
   }
 }
 

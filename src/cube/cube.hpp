@@ -113,13 +113,13 @@ private:
   const Side &right() const { return m_sides_from_faces.at(CubeFace::RIGHT); }
 };
 
-// write a hash function for Cube so we can use it in unordered_map
 namespace std {
 template <> struct hash<Cube> {
   size_t operator()(const Cube &cube) const {
     size_t hash = 0;
     for (const auto &pair : cube.m_sides_from_faces) {
-      hash ^= std::hash<Side>()(pair.second);
+      hash ^= (std::hash<Side>()(pair.second))
+              << (static_cast<size_t>(pair.first) * 36);
     }
     return hash;
   }

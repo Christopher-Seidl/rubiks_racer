@@ -26,7 +26,11 @@ public:
 
   bool is_solved() const;
 
+  bool is_cross_solved() const;
+
   size_t number_of_matched_squares() const;
+
+  size_t number_of_matching_rows_and_columns() const;
 
   void rotate_face(Rotation);
 
@@ -45,14 +49,14 @@ public:
   }
 };
 
-// write a hash function for Side
 namespace std {
 template <> struct hash<Side> {
   size_t operator()(const Side &side) const {
     size_t hash = 0;
+    size_t counter = 0;
     for (size_t i = 0; i < 3; i++) {
       for (size_t j = 0; j < 3; j++) {
-        hash ^= std::hash<Square>{}(side.m_squares[i][j]);
+        hash ^= (std::hash<Square>{}(side.m_squares[i][j])) << (4 * counter++);
       }
     }
     return hash;
