@@ -101,10 +101,10 @@ void Cube::rotate_face(CubeFace face, Rotation rotation) {
     case Rotation::COUNTER_CLOCKWISE:
       for (size_t i = 0; i < 3; i++) {
         Square temp = top.m_squares[2][i];
-        top.m_squares[2][i] = right.m_squares[2 - i][0];
-        right.m_squares[2 - i][0] = bottom.m_squares[0][2 - i];
-        bottom.m_squares[0][2 - i] = left.m_squares[i][2];
-        left.m_squares[i][2] = temp;
+        top.m_squares[2][i] = right.m_squares[i][0];
+        right.m_squares[i][0] = bottom.m_squares[0][2 - i];
+        bottom.m_squares[0][2 - i] = left.m_squares[2 - i][2];
+        left.m_squares[2 - i][2] = temp;
       }
       return;
     }
@@ -114,10 +114,10 @@ void Cube::rotate_face(CubeFace face, Rotation rotation) {
     case Rotation::CLOCKWISE:
       for (size_t i = 0; i < 3; i++) {
         Square temp = top.m_squares[0][i];
-        top.m_squares[0][i] = right.m_squares[2 - i][2];
-        right.m_squares[2 - i][2] = bottom.m_squares[2][2 - i];
-        bottom.m_squares[2][2 - i] = left.m_squares[i][0];
-        left.m_squares[i][0] = temp;
+        top.m_squares[0][i] = right.m_squares[i][2];
+        right.m_squares[i][2] = bottom.m_squares[2][2 - i];
+        bottom.m_squares[2][2 - i] = left.m_squares[2 - i][0];
+        left.m_squares[2 - i][0] = temp;
       }
       return;
     case Rotation::COUNTER_CLOCKWISE:

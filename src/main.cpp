@@ -9,8 +9,8 @@
 #include <unordered_set>
 #include <vector>
 
-void scramble_cube(Cube &cube) {
-  for (size_t i = 0; i < 3; i++) {
+void scramble_cube(Cube &cube, size_t num_scrambles) {
+  for (size_t i = 0; i < num_scrambles; i++) {
     CubeFace face = static_cast<CubeFace>(rand() % 6);
     Rotation rotation = static_cast<Rotation>(rand() % 2);
     std::cout << "scrambling face: " << face << " with rotation: " << rotation
@@ -20,19 +20,17 @@ void scramble_cube(Cube &cube) {
   }
 }
 
-struct CubeQualityComparator {
-  bool operator()(const Cube &lhs, const Cube &rhs) const {
-    return lhs.number_of_matched_squares() < rhs.number_of_matched_squares();
-  }
-};
+int main(int argc, char **argv) {
 
-using CubePriorityQueue =
-    std::priority_queue<Cube, std::vector<Cube>, CubeQualityComparator>;
-
-int main() {
   srand(time(nullptr));
   Cube starting_cube = Cube::SolvedCube();
-  scramble_cube(starting_cube);
+  size_t num_scrambles = 20;
+  if (argc == 2) {
+    num_scrambles = std::stoi(argv[1]);
+  }
+  scramble_cube(starting_cube, num_scrambles);
+
+  std::cout << "number of scrambles: " << num_scrambles << std::endl;
   std::cout << "scrambled cube:" << starting_cube << std::endl;
 
   constexpr std::array<Rotation, 2> rotations = {Rotation::CLOCKWISE,
@@ -41,14 +39,19 @@ int main() {
                                              CubeFace::FRONT, CubeFace::BACK,
                                              CubeFace::LEFT,  CubeFace::RIGHT};
 
-  CubePriorityQueue cube_queue;
+  // struct CubeQualityComparator {
+  //   bool operator()(const Cube &lhs, const Cube &rhs) const {
+  //     return lhs.number_of_matched_squares() <
+  //     rhs.number_of_matched_squares();
+  //   }
+  // };
+
+  std::queue<Cube> cube_queue;
   std::unordered_set<Cube> visited_cubes;
   cube_queue.push(starting_cube);
 
   while (!cube_queue.empty()) {
-    Cube current_cube = cube_queue.top();
-    // std::cout << "current cube score: " <<
-    // current_cube.number_of_matched_squares() << "\n";
+    Cube current_cube = cube_queue.front();
     cube_queue.pop();
     if (current_cube.is_solved()) {
       std::cout << "solved cube:" << current_cube << std::endl;
