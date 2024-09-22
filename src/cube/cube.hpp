@@ -62,7 +62,7 @@ public:
     const Side &left = cube.m_sides_from_faces.at(CubeFace::LEFT);
     const Side &right = cube.m_sides_from_faces.at(CubeFace::RIGHT);
     // print the top
-    os << std::endl;
+    os << std::endl << std::endl;
     for (size_t i = 0; i < 3; i++) {
       os << "            ";
       for (size_t j = 0; j < 3; j++) {
