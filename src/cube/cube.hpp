@@ -55,18 +55,12 @@ public:
   }
 
   friend std::ostream &operator<<(std::ostream &os, const Cube &cube) {
-    const Side &top = cube.m_sides_from_faces.at(CubeFace::TOP);
-    const Side &bottom = cube.m_sides_from_faces.at(CubeFace::BOTTOM);
-    const Side &front = cube.m_sides_from_faces.at(CubeFace::FRONT);
-    const Side &back = cube.m_sides_from_faces.at(CubeFace::BACK);
-    const Side &left = cube.m_sides_from_faces.at(CubeFace::LEFT);
-    const Side &right = cube.m_sides_from_faces.at(CubeFace::RIGHT);
     // print the top
     os << std::endl << std::endl;
     for (size_t i = 0; i < 3; i++) {
       os << "            ";
       for (size_t j = 0; j < 3; j++) {
-        os << top.m_squares[i][j] << " ";
+        os << cube.top().m_squares[i][j] << " ";
       }
       os << std::endl;
     }
@@ -75,19 +69,19 @@ public:
     for (size_t i = 0; i < 3; i++) {
       os << "    ";
       for (size_t j = 0; j < 3; j++) {
-        os << left.m_squares[i][j] << " ";
+        os << cube.left().m_squares[i][j] << " ";
       }
       os << "| ";
       for (size_t j = 0; j < 3; j++) {
-        os << front.m_squares[i][j] << " ";
+        os << cube.front().m_squares[i][j] << " ";
       }
       os << "| ";
       for (size_t j = 0; j < 3; j++) {
-        os << right.m_squares[i][j] << " ";
+        os << cube.right().m_squares[i][j] << " ";
       }
       os << "| ";
       for (size_t j = 0; j < 3; j++) {
-        os << back.m_squares[i][j] << " ";
+        os << cube.back().m_squares[i][j] << " ";
       }
       os << std::endl;
     }
@@ -96,13 +90,27 @@ public:
     for (size_t i = 0; i < 3; i++) {
       os << "            ";
       for (size_t j = 0; j < 3; j++) {
-        os << bottom.m_squares[i][j] << " ";
+        os << cube.bottom().m_squares[i][j] << " ";
       }
       os << std::endl;
     }
     os << std::endl;
     return os;
   }
+
+private:
+  Side &top() { return m_sides_from_faces.at(CubeFace::TOP); }
+  const Side &top() const { return m_sides_from_faces.at(CubeFace::TOP); }
+  Side &bottom() { return m_sides_from_faces.at(CubeFace::BOTTOM); }
+  const Side &bottom() const { return m_sides_from_faces.at(CubeFace::BOTTOM); }
+  Side &front() { return m_sides_from_faces.at(CubeFace::FRONT); }
+  const Side &front() const { return m_sides_from_faces.at(CubeFace::FRONT); }
+  Side &back() { return m_sides_from_faces.at(CubeFace::BACK); }
+  const Side &back() const { return m_sides_from_faces.at(CubeFace::BACK); }
+  Side &left() { return m_sides_from_faces.at(CubeFace::LEFT); }
+  const Side &left() const { return m_sides_from_faces.at(CubeFace::LEFT); }
+  Side &right() { return m_sides_from_faces.at(CubeFace::RIGHT); }
+  const Side &right() const { return m_sides_from_faces.at(CubeFace::RIGHT); }
 };
 
 // write a hash function for Cube so we can use it in unordered_map

@@ -14,7 +14,6 @@ void scramble_cube(Cube &cube, size_t num_scrambles) {
     CubeFace face = static_cast<CubeFace>(rand() % 6);
     Rotation rotation = static_cast<Rotation>(rand() % 2);
     std::cout << " * scrambling: " << face << " " << rotation << std::endl;
-    ;
     cube.rotate_face(face, rotation);
   }
 }
